@@ -85,6 +85,28 @@ export default function Home() {
   // Generate an array of spot numbers 1 to totalSpots
   const spots = Array.from({ length: totalSpots }, (_, i) => i + 1);
 
+  const renderSpot = (num) => {
+    const occupied = isSpotOccupied(num);
+    const selected = spotNumber === num;
+    const vehicle = getOccupiedVehicleType(num);
+    
+    let className = 'spot';
+    if (selected) className += ' selected';
+    else if (occupied) className += ' occupied';
+    else className += ' available';
+
+    return (
+      <div 
+        key={num} 
+        className={className}
+        onClick={() => !occupied && setSpotNumber(num)}
+        title={occupied ? `Occupied by a ${vehicle}` : `Spot ${num} available`}
+      >
+        {num}
+      </div>
+    );
+  };
+
   return (
     <div className="container" style={{ maxWidth: '1100px' }}>
       
@@ -168,28 +190,18 @@ export default function Home() {
             </button>
           </div>
 
-          <div className="parking-grid">
-            {spots.map(num => {
-              const occupied = isSpotOccupied(num);
-              const selected = spotNumber === num;
-              const vehicle = getOccupiedVehicleType(num);
-              
-              let className = 'spot';
-              if (selected) className += ' selected';
-              else if (occupied) className += ' occupied';
-              else className += ' available';
-
-              return (
-                <div 
-                  key={num} 
-                  className={className}
-                  onClick={() => !occupied && setSpotNumber(num)}
-                  title={occupied ? `Occupied by a ${vehicle}` : `Spot ${num} available`}
-                >
-                  {num}
-                </div>
-              );
-            })}
+          <div className="parking-lot-layout">
+            <div className="parking-row top">
+              {spots.slice(0, 10).map(renderSpot)}
+            </div>
+            
+            <div className="road">
+              <div className="road-line"></div>
+            </div>
+            
+            <div className="parking-row bottom">
+              {spots.slice(10, 20).map(renderSpot)}
+            </div>
           </div>
           
           <div style={{ display: 'flex', gap: '1.5rem', fontSize: '0.875rem', marginTop: '1rem', justifyContent: 'center' }}>
