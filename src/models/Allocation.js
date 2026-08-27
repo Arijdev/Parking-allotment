@@ -16,6 +16,12 @@ const AllocationSchema = new mongoose.Schema({
     required: [true, 'Please select a parking lot.'],
     enum: ['lot1', 'lot2', 'lot3'],
   },
+  spotNumber: {
+    type: Number,
+    required: [true, 'Please select a specific parking spot.'],
+    min: [1, 'Spot number must be at least 1'],
+    max: [20, 'Spot number cannot exceed 20'],
+  },
   createdAt: {
     type: Date,
     default: Date.now,

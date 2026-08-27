@@ -209,3 +209,92 @@ button:disabled {
   background: rgba(139, 92, 246, 0.2);
   color: #c4b5fd;
 }
+
+/* --- Visualizer Styles --- */
+
+.visualizer-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.lot-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.lot-tabs .tab-btn {
+  padding: 0.5rem 1rem;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex: 1;
+  text-align: center;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.lot-tabs .tab-btn.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+.lot-tabs .tab-btn:hover:not(.active) {
+  background: rgba(15, 23, 42, 0.8);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.parking-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.75rem;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.spot {
+  aspect-ratio: 1;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.spot.available {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #34d399;
+}
+
+.spot.available:hover {
+  background: rgba(16, 185, 129, 0.25);
+  transform: scale(1.05);
+}
+
+.spot.occupied {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px dashed rgba(239, 68, 68, 0.4);
+  color: #f87171;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.spot.selected {
+  background: var(--accent);
+  border: 2px solid #60a5fa;
+  color: white;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+}
