@@ -36,3 +36,25 @@ export async function GET() {
     return NextResponse.json({ success: false, error: error.message }, { status: 400 });
   }
 }
+
+export async function DELETE(request) {
+  try {
+    await dbConnect();
+    const { searchParams } = new URL(request.url);
+    const parkingLot = searchParams.get('parkingLot');
+    const spotNumber = searchParams.get('spotNumber');
+
+    if (!parkingLot || !spotNumber) {
+      return NextResponse.json({ success: false, error: 'Missing parameters' }, { status: 400 });
+    }
+
+    const result = await Allocation.findOneAndDelete({ parkingLot, spotNumber: parseInt(spotNumber) });
+    if (!result) {
+       return NextResponse.json({ success: false, error: 'Spot not found or already empty' }, { status: 404 });
+    }
+
+    return NextResponse.json({ success: true, data: result }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ success: false, error: error.message }, { status: 400 });
+  }
+}

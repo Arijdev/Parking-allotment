@@ -1,25 +1,21 @@
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import Navbar from '@/components/Navbar';
+import './globals.css';
 
 export const metadata = {
-  title: "ParkSpace Allotment",
-  description: "A production-level parking lot allotment system built with Next.js and MongoDB",
+  title: 'ParkSpace | Premium Parking Allotment',
+  description: 'A modern, production-ready parking allotment system built with Next.js and MongoDB.',
+  keywords: 'parking, allotment, reservation, vehicle, management',
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Navbar />
+        <main>
+          {children}
+        </main>
+      </body>
     </html>
   );
 }

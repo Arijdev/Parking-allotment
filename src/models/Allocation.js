@@ -11,6 +11,11 @@ const AllocationSchema = new mongoose.Schema({
     required: [true, 'Please specify the vehicle type.'],
     enum: ['car', 'motorcycle', 'bicycle'],
   },
+  vehicleNumber: {
+    type: String,
+    required: [true, 'Please provide the vehicle number.'],
+    maxlength: [20, 'Vehicle number cannot be more than 20 characters'],
+  },
   parkingLot: {
     type: String,
     required: [true, 'Please select a parking lot.'],
