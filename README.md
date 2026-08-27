@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🅿️ ParkSpace - Smart Parking Management System
 
-## Getting Started
+A premium, modern web application for managing parking lot allocations, built with **Next.js**, **React**, and **MongoDB**. Features a beautiful Glassmorphism design with seamless Light and Dark mode support.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Live Parking Visualizer**: Interactive grid showing real-time availability of parking spots across multiple lots.
+- **Dynamic Booking**: Book spots easily by providing user details and vehicle information.
+- **Smart Checkout**: Soft-delete functionality allowing users to checkout vehicles while keeping history intact.
+- **History Dashboard**: A dedicated page to view past and present allocations, complete with a permanent delete option for cleanup.
+- **Premium Aesthetics**: Carefully crafted Glassmorphism UI that automatically adapts to Light and Dark modes based on user preference.
+- **Fully Responsive**: Optimized for desktop, tablet, and mobile devices.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tech Stack
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- **Framework**: Next.js (App Router)
+- **Frontend**: React, Custom CSS (CSS Variables for Theming)
+- **Backend**: Next.js Route Handlers (API)
+- **Database**: MongoDB (Mongoose)
+- **Theming**: `next-themes`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ⚙️ Setup & Installation
 
-## Learn More
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd parking-system
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **Configure Environment Variables**
+   Create a `.env.local` file in the root directory and add your MongoDB connection string:
+   ```env
+   MONGODB_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/parking?retryWrites=true&w=majority
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. **Run the Development Server**
+   ```bash
+   npm run dev
+   ```
 
-## Deploy on Vercel
+5. **Open the Application**
+   Navigate to [http://localhost:3000](http://localhost:3000) in your browser.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🗺️ Application Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `/` - Main Dashboard & Live Parking Map
+- `/history` - Allocation History and Database Management
+- `/api/allocations` - REST API for managing parking data
+
+## 🎨 UI/UX Highlights
+
+- Uses `next-themes` for seamless toggling between light and dark aesthetics.
+- Custom CSS variables (`--bg-color`, `--card-bg`) dynamically update the entire application without needing to reload.
+- High-contrast visual states for Available (Green) and Occupied (Red) parking spots.
+
+## 📄 License
+MIT License

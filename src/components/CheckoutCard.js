@@ -9,7 +9,7 @@ export default function CheckoutCard({
     <div className="card">
       <h2>Checkout Vehicle</h2>
       <form onSubmit={handleCheckout} className="form-layout">
-        <div style={{ marginBottom: '1.5rem', color: 'rgba(255,255,255,0.8)' }}>
+        <div style={{ marginBottom: '1.5rem', color: 'var(--text-secondary)' }}>
           <p style={{ marginBottom: '0.5rem' }}><strong>Spot:</strong> {checkoutSpot}</p>
           <p style={{ marginBottom: '0.5rem' }}><strong>Vehicle:</strong> {getOccupiedVehicleDetails(checkoutSpot)}</p>
           <p><strong>Lot:</strong> {parkingLot}</p>
@@ -20,7 +20,7 @@ export default function CheckoutCard({
         <button 
           type="button" 
           className="submit-btn" 
-          style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.2)', marginTop: '0.75rem' }} 
+          style={{ background: 'transparent', border: '1px solid var(--border)', color: 'var(--text-primary)', marginTop: '0.75rem' }} 
           onClick={onCancel}
         >
           Cancel

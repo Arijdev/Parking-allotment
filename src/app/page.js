@@ -126,8 +126,7 @@ export default function Home() {
   };
 
   return (
-    <div className="container" style={{ maxWidth: '1100px', paddingTop: '80px' }}>
-      <div className="dashboard-grid">
+    <div className="container" style={{ paddingTop: '80px' }}>
         {/* Form Section */}
         <div className="glass-panel" style={{ animationDelay: '0s' }}>
           {checkoutSpot ? (
@@ -183,20 +182,19 @@ export default function Home() {
           
           <div style={{ display: 'flex', gap: '1.5rem', fontSize: '0.875rem', marginTop: '1rem', justifyContent: 'center' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: 'rgba(34, 197, 94, 0.2)', border: '1px solid #22c55e' }}></div>
-              <span style={{ color: 'rgba(255,255,255,0.7)' }}>Available</span>
+              <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: 'var(--spot-avail-bg)', border: '1px solid var(--spot-avail-border)' }}></div>
+              <span style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>Available</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: 'rgba(239, 68, 68, 0.2)', border: '1px dashed #ef4444' }}></div>
-              <span style={{ color: 'rgba(255,255,255,0.7)' }}>Occupied</span>
+              <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: 'var(--spot-occ-bg)', border: '1px dashed var(--spot-occ-border)' }}></div>
+              <span style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>Occupied</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: 'rgba(59, 130, 246, 0.2)', border: '1px solid #3b82f6' }}></div>
-              <span style={{ color: 'rgba(255,255,255,0.7)' }}>Selected</span>
+              <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: 'var(--accent)', border: '1px solid var(--accent-hover)' }}></div>
+              <span style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>Selected</span>
             </div>
           </div>
         </div>
-      </div>
     </div>
   );
 }
