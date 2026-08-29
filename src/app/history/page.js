@@ -40,11 +40,12 @@ export default function HistoryPage() {
   };
 
   return (
-    <div style={{ maxWidth: '900px', width: '100%', padding: '2rem', marginTop: '40px' }}>
-      <h1>Parking History</h1>
-      <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>
-        View all active and past vehicle allocations.
-      </p>
+    <div className="flex flex-col flex-grow w-full items-center py-10 px-6">
+      <div className="w-full max-w-5xl">
+        <h1 className="text-3xl md:text-4xl font-bold mb-2">Parking History</h1>
+        <p className="text-gray-500 dark:text-gray-400 mb-8">
+          View all active and past vehicle allocations.
+        </p>
 
       <div className="glass-panel">
         {loading ? (
@@ -122,6 +123,7 @@ export default function HistoryPage() {
             </table>
           </div>
         )}
+      </div>
       </div>
     </div>
   );

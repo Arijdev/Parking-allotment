@@ -28,10 +28,16 @@ export default function Navbar() {
         </Link>
         <div className="nav-links">
           <Link href="/" className={`nav-link ${pathname === '/' ? 'active' : ''}`}>
-            Dashboard
+            Home
+          </Link>
+          <Link href="/book" className={`nav-link ${pathname === '/book' ? 'active' : ''}`}>
+            Book Spot
           </Link>
           <Link href="/history" className={`nav-link ${pathname === '/history' ? 'active' : ''}`}>
             History
+          </Link>
+          <Link href="/about" className={`nav-link ${pathname === '/about' ? 'active' : ''}`}>
+            About
           </Link>
           
           {mounted && (

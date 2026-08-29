@@ -1,200 +1,52 @@
 'use client';
+import Link from 'next/link';
 
-import { useState, useEffect } from 'react';
-import ParkingGrid from '@/components/ParkingGrid';
-import BookingForm from '@/components/BookingForm';
-import CheckoutCard from '@/components/CheckoutCard';
-
-export default function Home() {
-  const [name, setName] = useState('');
-  const [vehicleType, setVehicleType] = useState('car');
-  const [vehicleNumber, setVehicleNumber] = useState('');
-  const [parkingLot, setParkingLot] = useState('lot1');
-  const [spotNumber, setSpotNumber] = useState(null);
-  const [checkoutSpot, setCheckoutSpot] = useState(null);
-  
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState('');
-  const [allocations, setAllocations] = useState([]);
-  
-  const totalSpots = 20; // 20 spots per lot
-
-  useEffect(() => {
-    fetchAllocations();
-  }, []);
-
-  const fetchAllocations = async () => {
-    try {
-      const res = await fetch('/api/allocations');
-      const data = await res.json();
-      if (data.success) {
-        setAllocations(data.data);
-      }
-    } catch (error) {
-      console.error('Failed to fetch allocations:', error);
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!spotNumber) {
-      setMessage('Error: Please select an available spot from the map.');
-      return;
-    }
-    
-    setLoading(true);
-    setMessage('');
-
-    try {
-      const res = await fetch('/api/allocations', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, vehicleType, vehicleNumber, parkingLot, spotNumber }),
-      });
-      const data = await res.json();
-      
-      if (data.success) {
-        setMessage(`Hello ${name}, your ${vehicleType} (${vehicleNumber}) has been allotted spot #${spotNumber} in ${parkingLot}.`);
-        setName('');
-        setVehicleType('car');
-        setVehicleNumber('');
-        setSpotNumber(null);
-        fetchAllocations();
-      } else {
-        setMessage(`Error: ${data.error}`);
-      }
-    } catch (error) {
-      setMessage('An error occurred while submitting.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Helper to check if a spot is occupied in the current selected lot
-  const isSpotOccupied = (num) => {
-    return allocations.some(a => a.parkingLot === parkingLot && a.spotNumber === num);
-  };
-  
-  // Get vehicle details of occupied spot
-  const getOccupiedVehicleDetails = (num) => {
-    const alloc = allocations.find(a => a.parkingLot === parkingLot && a.spotNumber === num);
-    return alloc ? `${alloc.vehicleType} (${alloc.vehicleNumber || 'N/A'})` : null;
-  };
-
-  // Handle lot change
-  const handleLotChange = (lot) => {
-    setParkingLot(lot);
-    setSpotNumber(null);
-    setCheckoutSpot(null);
-    setMessage('');
-  };
-
-  const handleCheckout = async (e) => {
-    e.preventDefault();
-    if (!checkoutSpot) return;
-
-    try {
-      const res = await fetch(`/api/allocations?parkingLot=${parkingLot}&spotNumber=${checkoutSpot}`, {
-        method: 'DELETE',
-      });
-      const data = await res.json();
-      
-      if (data.success) {
-        setMessage(`Vehicle successfully checked out from Spot #${checkoutSpot} in ${parkingLot}.`);
-        setCheckoutSpot(null);
-        fetchAllocations();
-      } else {
-        setMessage(data.error || 'Failed to checkout vehicle.');
-      }
-    } catch (err) {
-      setMessage('An error occurred while checking out.');
-    }
-  };
-
-  // Generate an array of spot numbers 1 to totalSpots
-  const spots = Array.from({ length: totalSpots }, (_, i) => i + 1);
-
-  const handleSpotClick = (num, occupied) => {
-    setMessage('');
-    if (!occupied) {
-      setSpotNumber(num);
-      setCheckoutSpot(null);
-    } else {
-      setCheckoutSpot(num);
-      setSpotNumber(null);
-    }
-  };
-
+export default function HomePage() {
   return (
-    <div className="container" style={{ paddingTop: '80px' }}>
-        {/* Form Section */}
-        <div className="glass-panel" style={{ animationDelay: '0s' }}>
-          {checkoutSpot ? (
-            <CheckoutCard 
-              checkoutSpot={checkoutSpot}
-              parkingLot={parkingLot}
-              getOccupiedVehicleDetails={getOccupiedVehicleDetails}
-              handleCheckout={handleCheckout}
-              onCancel={() => setCheckoutSpot(null)}
-            />
-          ) : (
-            <BookingForm 
-              name={name} setName={setName}
-              vehicleType={vehicleType} setVehicleType={setVehicleType}
-              vehicleNumber={vehicleNumber} setVehicleNumber={setVehicleNumber}
-              spotNumber={spotNumber} parkingLot={parkingLot}
-              handleSubmit={handleSubmit} loading={loading}
-            />
-          )}
-
-          {message && (
-            <div className="message" style={{ borderColor: message.startsWith('Error') ? 'rgba(239, 68, 68, 0.4)' : '', background: message.startsWith('Error') ? 'rgba(239, 68, 68, 0.1)' : '', color: message.startsWith('Error') ? '#f87171' : ''}}>
-              {message}
-            </div>
-          )}
+    <div className="flex flex-col flex-grow w-full items-center justify-center p-6">
+      
+      {/* Hero Section */}
+      <section className="w-full max-w-5xl mx-auto flex flex-col items-center text-center py-20">
+        <div className="inline-block mb-4 px-4 py-1.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-semibold text-sm tracking-wide border border-blue-200 dark:border-blue-800">
+          The Future of Parking is Here
         </div>
-
-        {/* Visualizer Section */}
-        <div className="glass-panel" style={{ animationDelay: '0.1s' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-            <h2>Live Parking Map</h2>
-            <div className="lot-tabs">
-              {['lot1', 'lot2', 'lot3'].map(lot => (
-                <button 
-                  key={lot}
-                  className={`tab-btn ${parkingLot === lot ? 'active' : ''}`}
-                  onClick={() => handleLotChange(lot)}
-                >
-                  {lot.toUpperCase()}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <ParkingGrid 
-            spots={spots}
-            spotNumber={spotNumber}
-            checkoutSpot={checkoutSpot}
-            isSpotOccupied={isSpotOccupied}
-            getOccupiedVehicleDetails={getOccupiedVehicleDetails}
-            onSpotClick={handleSpotClick}
-          />
-          
-          <div style={{ display: 'flex', gap: '1.5rem', fontSize: '0.875rem', marginTop: '1rem', justifyContent: 'center' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: 'var(--spot-avail-bg)', border: '1px solid var(--spot-avail-border)' }}></div>
-              <span style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>Available</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: 'var(--spot-occ-bg)', border: '1px dashed var(--spot-occ-border)' }}></div>
-              <span style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>Occupied</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: 'var(--accent)', border: '1px solid var(--accent-hover)' }}></div>
-              <span style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>Selected</span>
-            </div>
-          </div>
+        
+        <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6" style={{ background: 'linear-gradient(to right, #3b82f6, #8b5cf6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', lineHeight: 1.2 }}>
+          Seamless Parking,<br />Zero Stress.
+        </h1>
+        
+        <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mb-10 leading-relaxed">
+          Experience the ultimate convenience with ParkSpace. Reserve your premium spot in seconds, track availability in real-time, and manage your vehicle history effortlessly.
+        </p>
+        
+        <div className="flex flex-col sm:flex-row gap-4">
+          <Link href="/book">
+            <button className="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-blue-500/30 hover:-translate-y-1 transition-all duration-300 min-w-[200px]">
+              Book a Spot Now
+            </button>
+          </Link>
+          <Link href="/about">
+            <button className="px-8 py-4 bg-white dark:bg-slate-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 rounded-xl font-bold text-lg shadow-sm hover:bg-gray-50 dark:hover:bg-slate-700 transition-all duration-300 min-w-[200px]">
+              Learn More
+            </button>
+          </Link>
         </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="w-full max-w-5xl mx-auto py-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+        {[
+          { title: "Real-time Availability", desc: "View live parking maps to find open spots instantly across multiple lots.", icon: "🗺️" },
+          { title: "Secure Checkout", desc: "Guaranteed spots and automated checkout tracking for your peace of mind.", icon: "🔒" },
+          { title: "Detailed History", desc: "Access comprehensive records of all your past parking allocations.", icon: "📊" }
+        ].map((feature, idx) => (
+          <div key={idx} className="glass-panel text-center flex flex-col items-center p-8 hover:-translate-y-2 transition-transform duration-300" style={{ animationDelay: `${idx * 0.1}s` }}>
+            <div className="text-4xl mb-4">{feature.icon}</div>
+            <h3 className="text-xl font-bold mb-3 dark:text-white">{feature.title}</h3>
+            <p className="text-gray-600 dark:text-gray-400">{feature.desc}</p>
+          </div>
+        ))}
+      </section>
     </div>
   );
 }
