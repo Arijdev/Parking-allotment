@@ -1,60 +1,31 @@
 'use client';
 import Link from 'next/link';
 
-const stats = [
-  { value: '3', label: 'Parking Lots' },
-  { value: '60', label: 'Total Spots' },
-  { value: '24/7', label: 'Availability' },
-  { value: '100%', label: 'Real-time Updates' },
-];
-
 const features = [
-  {
-    icon: '🗺️',
-    title: 'Live Parking Map',
-    desc: 'View an interactive, real-time map of all parking spots across Lot 1, Lot 2, and Lot 3. Instantly see which spots are available, occupied, or selected.',
-  },
-  {
-    icon: '⚡',
-    title: 'Instant Booking',
-    desc: 'Reserve your spot in seconds. Simply enter your name, vehicle number, and type — then click a spot on the map to confirm your booking instantly.',
-  },
-  {
-    icon: '🔄',
-    title: 'Easy Checkout',
-    desc: 'Click any occupied spot to trigger a smooth checkout flow. Vehicle records are updated in real-time the moment a driver leaves.',
-  },
-  {
-    icon: '📋',
-    title: 'Full History Log',
-    desc: 'Every booking and checkout is recorded with timestamps. Browse the full history table to audit active sessions and past allocations.',
-  },
-  {
-    icon: '🌙',
-    title: 'Dark & Light Mode',
-    desc: 'Switch between a sleek dark mode and a crisp light mode with a single click. Your preference is remembered across sessions.',
-  },
-  {
-    icon: '📱',
-    title: 'Fully Responsive',
-    desc: 'ParkSpace works beautifully on desktops, tablets, and mobile phones — no matter the screen size, your experience stays consistent.',
-  },
+  { icon: '🗺️', title: 'Interactive Live Map', desc: 'Each parking lot (Lot 1, 2, 3) is rendered as a real-time grid. Spot colors update the moment a booking or checkout occurs — no page refresh required.' },
+  { icon: '⚡', title: 'Instant Allocation', desc: 'Bookings are written to MongoDB immediately on submission. The system prevents double-booking by validating spot availability before confirming.' },
+  { icon: '🔄', title: 'One-Click Checkout', desc: 'Clicking an occupied spot opens a checkout panel. Confirming marks the allocation as checked_out and frees the spot for the next driver.' },
+  { icon: '📋', title: 'Audit-Ready History', desc: 'Every allocation stores check-in time, check-out time, vehicle details, and lot info. The History page lets managers delete stale records.' },
+  { icon: '🌙', title: 'Adaptive Theming', desc: 'The app reads the system color scheme on first load and lets users toggle between dark and light modes at any time via the navbar.' },
+  { icon: '📱', title: 'Responsive Layout', desc: 'The parking grid, booking form, and history table all reflow cleanly on mobile and tablet screens with no horizontal scroll.' },
 ];
 
 const techStack = [
-  { name: 'Next.js 16', desc: 'React framework with App Router', color: '#000000' },
-  { name: 'MongoDB', desc: 'Flexible NoSQL database', color: '#10b981' },
-  { name: 'Mongoose', desc: 'Elegant MongoDB object modeling', color: '#880000' },
-  { name: 'Tailwind CSS', desc: 'Utility-first CSS framework', color: '#3b82f6' },
+  { name: 'Next.js 16', role: 'App Router, API Routes, SSR', color: '#000000' },
+  { name: 'React 19', role: 'UI components & state management', color: '#61DAFB' },
+  { name: 'MongoDB', role: 'NoSQL document database', color: '#10b981' },
+  { name: 'Mongoose', role: 'Schema modeling & validation', color: '#880000' },
+  { name: 'Tailwind CSS v4', role: 'Utility-first styling', color: '#3b82f6' },
+  { name: 'next-themes', role: 'Dark / light mode switching', color: '#8b5cf6' },
 ];
 
 export default function AboutPage() {
   return (
-    <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '2rem 1.5rem' }}>
+    <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0 1.5rem 3rem' }}>
       <div style={{ width: '100%', maxWidth: '900px' }}>
 
-        {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+        {/* ── Header ── */}
+        <section style={{ textAlign: 'center', padding: '3rem 0 2.5rem' }}>
           <div style={{
             display: 'inline-block',
             marginBottom: '1rem',
@@ -70,112 +41,98 @@ export default function AboutPage() {
             ABOUT PARKSPACE
           </div>
           <h1 style={{
-            fontSize: 'clamp(2rem, 5vw, 3rem)',
+            fontSize: 'clamp(1.8rem, 5vw, 2.8rem)',
             fontWeight: 800,
             lineHeight: 1.2,
-            marginBottom: '1rem',
+            margin: '0.75rem 0 1.25rem',
             background: 'linear-gradient(to right, #3b82f6, #8b5cf6)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
           }}>
-            Smarter Parking,<br />Built for Everyone.
+            Built to Solve Real<br />Parking Problems.
           </h1>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', maxWidth: '620px', margin: '0 auto', lineHeight: 1.75 }}>
-            ParkSpace is a modern, full-stack vehicle allotment system designed to eliminate the chaos of manual parking management. Built with real-time data, a beautiful interface, and zero complexity for the end user.
+          <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', maxWidth: '580px', margin: '0 auto', lineHeight: 1.8 }}>
+            ParkSpace was built out of frustration with paper logbooks and silent spreadsheets. We wanted something anyone could use — operators and drivers alike — with zero training and full real-time accuracy.
           </p>
-        </div>
+        </section>
 
-        {/* Stats Row */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: '1rem',
-          marginBottom: '3rem',
-        }}>
-          {stats.map(({ value, label }) => (
-            <div key={label} className="glass-panel" style={{ textAlign: 'center', padding: '1.25rem 1rem' }}>
-              <div style={{
-                fontSize: '1.75rem',
-                fontWeight: 800,
-                background: 'linear-gradient(to right, #3b82f6, #8b5cf6)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                marginBottom: '0.25rem',
-              }}>{value}</div>
-              <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: 500 }}>{label}</div>
-            </div>
-          ))}
-        </div>
-
-        {/* Mission */}
+        {/* ── Mission ── */}
         <div className="glass-panel" style={{ marginBottom: '2rem' }}>
-          <h2 style={{ fontSize: '1.3rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.75rem' }}>
-            🎯 Our Mission
-          </h2>
-          <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, fontSize: '0.97rem' }}>
-            We built ParkSpace because parking management deserves better than paper logs and spreadsheets. Our goal is to give lot operators and drivers a shared, real-time view of parking availability — so no one wastes time searching for a spot, and no spot goes unaccounted for.
+          <h2 style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.75rem' }}>🎯 Mission</h2>
+          <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, fontSize: '0.95rem' }}>
+            Our mission is to replace manual, error-prone parking processes with a transparent, live system. ParkSpace tracks every vehicle from entry to exit — giving operators full visibility and giving drivers instant confidence that their spot is reserved.
           </p>
         </div>
 
-        {/* Features Grid */}
+        {/* ── Detailed Features ── */}
         <h2 style={{ fontSize: '1.3rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '1rem' }}>
-          ✨ Features
+          🔍 Feature Deep-Dive
         </h2>
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
           gap: '1rem',
-          marginBottom: '2rem',
+          marginBottom: '2.5rem',
         }}>
           {features.map(({ icon, title, desc }) => (
-            <div key={title} className="glass-panel" style={{ padding: '1.25rem' }}>
+            <div key={title} className="glass-panel" style={{ padding: '1.35rem' }}>
               <div style={{ fontSize: '1.6rem', marginBottom: '0.6rem' }}>{icon}</div>
-              <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.4rem' }}>{title}</h3>
-              <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>{desc}</p>
+              <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.4rem' }}>{title}</h3>
+              <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>{desc}</p>
             </div>
           ))}
         </div>
 
-        {/* Tech Stack */}
+        {/* ── Tech Stack ── */}
         <h2 style={{ fontSize: '1.3rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '1rem' }}>
           🛠️ Tech Stack
         </h2>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-          gap: '1rem',
-          marginBottom: '3rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+          gap: '0.85rem',
+          marginBottom: '2.5rem',
         }}>
-          {techStack.map(({ name, desc, color }) => (
+          {techStack.map(({ name, role, color }) => (
             <div key={name} className="glass-panel" style={{ padding: '1rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <div style={{
-                width: '10px',
-                height: '10px',
-                borderRadius: '50%',
-                background: color,
-                flexShrink: 0,
-              }} />
+              <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: color, flexShrink: 0 }} />
               <div>
                 <div style={{ fontWeight: 700, fontSize: '0.9rem', color: 'var(--text-primary)' }}>{name}</div>
-                <div style={{ fontSize: '0.775rem', color: 'var(--text-secondary)' }}>{desc}</div>
+                <div style={{ fontSize: '0.76rem', color: 'var(--text-secondary)', marginTop: '0.1rem' }}>{role}</div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* CTA */}
-        <div className="glass-panel" style={{ textAlign: 'center', padding: '2rem' }}>
-          <h3 style={{ fontSize: '1.3rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>
-            Ready to get started?
-          </h3>
-          <p style={{ color: 'var(--text-secondary)', marginBottom: '1.25rem', fontSize: '0.95rem' }}>
-            Book your spot in under 30 seconds. No sign-up required.
-          </p>
-          <Link href="/book">
-            <button className="global-btn" style={{ width: 'auto', padding: '0.8rem 2rem', borderRadius: '10px', fontSize: '0.95rem' }}>
-              Book a Spot Now →
-            </button>
-          </Link>
+        {/* ── Open Source note ── */}
+        <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem', flexWrap: 'wrap' }}>
+          <div style={{ fontSize: '2rem' }}>📂</div>
+          <div style={{ flex: 1 }}>
+            <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.25rem' }}>Open Source</h3>
+            <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+              ParkSpace is open source. Browse the code, fork it, or contribute on GitHub.
+              Built as a full-stack learning project using the latest Next.js App Router.
+            </p>
+          </div>
+          <a
+            href="https://github.com/Arijdev/Parking-allotment"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              padding: '0.6rem 1.25rem',
+              background: 'var(--input-bg)',
+              border: '1px solid var(--border)',
+              borderRadius: '8px',
+              fontSize: '0.85rem',
+              fontWeight: 600,
+              color: 'var(--text-primary)',
+              textDecoration: 'none',
+              whiteSpace: 'nowrap',
+              flexShrink: 0,
+            }}
+          >
+            View on GitHub →
+          </a>
         </div>
 
       </div>
