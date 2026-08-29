@@ -2,35 +2,87 @@
 import Link from 'next/link';
 
 export default function Footer() {
+  const year = new Date().getFullYear();
+
   return (
-    <footer className="w-full bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border-t border-gray-200 dark:border-gray-800 mt-auto py-8">
-      <div className="max-w-5xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-        
+    <footer style={{
+      width: '100%',
+      background: 'var(--card-bg)',
+      borderTop: '1px solid var(--border)',
+      backdropFilter: 'blur(12px)',
+      WebkitBackdropFilter: 'blur(12px)',
+      position: 'relative',
+      zIndex: 10,
+    }}>
+      {/* Main footer row */}
+      <div style={{
+        maxWidth: '1024px',
+        margin: '0 auto',
+        padding: '1.25rem 1.5rem',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: '1rem',
+        flexWrap: 'wrap',
+      }}>
+
         {/* Brand */}
-        <div className="flex flex-col items-center md:items-start">
-          <Link href="/" className="flex items-center gap-2 text-xl font-bold mb-2">
-            <span>🅿️</span>
-            <span style={{ background: 'linear-gradient(to right, #3b82f6, #8b5cf6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-              ParkSpace
-            </span>
-          </Link>
-          <p className="text-sm text-gray-500 dark:text-gray-400 text-center md:text-left">
-            Premium vehicle allotment <br className="hidden md:block" />and management system.
-          </p>
+        <Link href="/" style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.4rem',
+          textDecoration: 'none',
+          fontWeight: 700,
+          fontSize: '1.05rem',
+          flexShrink: 0,
+        }}>
+          <span>🅿️</span>
+          <span style={{
+            background: 'linear-gradient(to right, #3b82f6, #8b5cf6)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+          }}>ParkSpace</span>
+        </Link>
+
+        {/* Nav links — center */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '1.5rem',
+        }}>
+          {[
+            { href: '/', label: 'Home' },
+            { href: '/book', label: 'Book' },
+            { href: '/history', label: 'History' },
+            { href: '/about', label: 'About' },
+          ].map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              style={{
+                textDecoration: 'none',
+                fontSize: '0.875rem',
+                fontWeight: 500,
+                color: 'var(--text-secondary)',
+                transition: 'color 0.2s',
+              }}
+              onMouseOver={e => e.currentTarget.style.color = 'var(--accent)'}
+              onMouseOut={e => e.currentTarget.style.color = 'var(--text-secondary)'}
+            >
+              {label}
+            </Link>
+          ))}
         </div>
 
-        {/* Links */}
-        <div className="flex gap-6 text-sm font-medium text-gray-600 dark:text-gray-300">
-          <Link href="/" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Home</Link>
-          <Link href="/book" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Book</Link>
-          <Link href="/history" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">History</Link>
-          <Link href="/about" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">About</Link>
-        </div>
-
-        {/* Copyright */}
-        <div className="text-sm text-gray-400 dark:text-gray-500">
-          &copy; {new Date().getFullYear()} ParkSpace. All rights reserved.
-        </div>
+        {/* Copyright — right */}
+        <p style={{
+          fontSize: '0.8rem',
+          color: 'var(--text-secondary)',
+          flexShrink: 0,
+          opacity: 0.7,
+        }}>
+          &copy; {year} ParkSpace
+        </p>
 
       </div>
     </footer>
