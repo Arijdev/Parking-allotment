@@ -157,7 +157,7 @@ export default function BookPage() {
         {/* Visualizer Section */}
         <div className="glass-panel" style={{ animationDelay: '0.1s' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-            <h2>Live Parking Map</h2>
+            <h2 className="global-heading">Live Parking Map</h2>
             <div className="lot-tabs">
               {['lot1', 'lot2', 'lot3'].map(lot => (
                 <button 

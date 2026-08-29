@@ -7,7 +7,7 @@ export default function BookingForm({
 }) {
   return (
     <div className="card">
-      <h2>Book a Spot</h2>
+      <h2 className="global-heading">Book a Spot</h2>
       <form onSubmit={handleSubmit} className="form-layout">
         <div className="form-group">
           <label htmlFor="name">Full Name</label>
@@ -57,7 +57,7 @@ export default function BookingForm({
           />
         </div>
         
-        <button type="submit" className="submit-btn" disabled={!spotNumber || loading}>
+        <button type="submit" className="submit-btn global-btn" disabled={!spotNumber || loading}>
           {loading ? 'Confirming...' : 'Confirm Booking'}
         </button>
       </form>

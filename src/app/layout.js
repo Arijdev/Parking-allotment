@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
       <body className="antialiased font-sans flex flex-col min-h-screen">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navbar />
-          <main className="flex-grow pt-16 flex flex-col">
+          <main className="flex-grow flex flex-col w-full" style={{ paddingTop: '100px', paddingBottom: '40px' }}>
             {children}
           </main>
           <Footer />
